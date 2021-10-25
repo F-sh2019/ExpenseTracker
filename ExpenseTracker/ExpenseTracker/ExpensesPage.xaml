@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpenseTracker.ExpensesPage"
+             xmlns:Model="clr-namespace:ExpenseTracker.Model" >
+    
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="+" Clicked="AddNewExpenses_Click" Priority="0" Order="Primary"  ></ToolbarItem>
+        <ToolbarItem Text="Budget Summary" Clicked="ShowMonthlyBudgetSummary_Click" Priority="1" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+   
+    <StackLayout>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+           
+
+            <Button Grid.Row="0"  Grid.Column="0" 
+                    Text="&#8942;" WidthRequest="50"  HeightRequest="70" 
+                    HorizontalOptions="Start" TextColor="White" FontSize="30"
+                    Clicked="ShowMonthlyBudgetSummary_Click" />
+
+            <Label Text="Expenses List" FontSize="Large" FontAttributes="Bold"  
+                   Grid.Row="0"  Grid.Column="1"  Grid.ColumnSpan="2" 
+                   HorizontalOptions ="Center" VerticalOptions="Center"  />
+
+
+            <ImageButton   x:Name="ADDExpenseButton" Grid.Row="0" Grid.Column="3" Clicked="AddNewExpenses_Click"  WidthRequest="50"  HeightRequest="100" HorizontalOptions ="End" VerticalOptions="Center"  >
+                <ImageButton.Source >
+                    <FontImageSource Glyph="&#x2B;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="10"     />
+                </ImageButton.Source>    
+            </ImageButton>
+        
+
+        <Picker x:Name="ExpenseMonthPicker"
+                        Margin="20,0,0,0"
+                        Title="Month"
+                        SelectedIndexChanged="OnMonthBrows" Grid.Row="1" Grid.Column="1" FontSize="Small"   >
+              
+                <Picker.ItemsSource>
+                
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>January</x:String>
+                    <x:String>February</x:String>
+                    <x:String>March</x:String>
+                    <x:String>April</x:String>
+                    <x:String>May</x:String>
+                    <x:String>June</x:String>
+                    <x:String>July</x:String>
+                    <x:String>August</x:String>
+                    <x:String>September</x:String>
+                    <x:String>October</x:String>
+                    <x:String>November</x:String>
+                    <x:String>December</x:String>
+                </x:Array>
+                
+            </Picker.ItemsSource>
+           
+
+            </Picker>
+        <Picker x:Name="ExpenseYearPicker"
+                            Margin="10,0,20,0"
+                            Title="Year"
+                            SelectedIndexChanged="OnYearBrows"
+                            Grid.Row="1" Grid.Column="2" FontSize="Small">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>2021</x:String>
+                    <x:String>2022</x:String>
+                    <x:String>2023</x:String>
+                    <x:String>2024</x:String>
+                    <x:String>2025</x:String>
+                    <x:String>2026</x:String>
+                    <x:String>2027</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        </Grid>
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"  />
+                <RowDefinition Height="*"  />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Sort" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start" WidthRequest="50" Margin="0,20,0,0"
+                   HeightRequest="100" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalTextAlignment="Center" />
+
+            <Picker x:Name="SortingPicker"  SelectedIndexChanged="SortingSelectedItem_Click" 
+                     FontSize="Small"      HorizontalOptions="Start" Grid.Row="0"  Grid.Column="1" HeightRequest="100"
+                     VerticalOptions="Center" HorizontalTextAlignment="Center" 
+                    Title="Sort"  WidthRequest="100"   >
+
+            </Picker>
+            <Label Text="Filter By"  FontSize="Small" FontAttributes="Bold"  HorizontalOptions="Start"  WidthRequest="60"  HeightRequest="100" Margin="0,20,0,0"
+                   Grid.Row="0" Grid.Column="2"  VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+
+            <Picker x:Name="FilteringPicker"  SelectedIndexChanged="FilteringPickerSelectedItem_Click" 
+                    FontSize="Small"     HorizontalOptions="Start" Grid.Row="0" Grid.Column="3"
+                     Title="Filter by"  VerticalOptions="Center" HorizontalTextAlignment="Center" WidthRequest="100"   HeightRequest="100" />
+
+        </Grid>
+
+
+
+
+
+        <ListView x:Name="ExpensesListView"
+                   Margin="20"
+                   IsPullToRefreshEnabled="True"
+                   ItemSelected="ExpensesListView_ItemSelected">
+            <ListView.ItemTemplate >
+                <DataTemplate x:DataType="Model:Expenses">
+                    <ViewCell>
+                      <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"   />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label   Text ="{Binding Description}" TextColor="Black" FontSize="Small"  Grid.Column="0"/>
+                        <Label   Text="{Binding ExpenseAmount ,StringFormat= '{0:C}'}" TextColor="DarkBlue" FontSize="Small" Grid.Column="1"    />
+                        <Label   Text="{Binding ExpenseDate ,StringFormat='{}{0:dd/MM/yyyy}'}" TextColor="ForestGreen" FontSize="Small" Grid.Column="2"/>
+                    </Grid>
+                    </ViewCell>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+                
+        </ListView>
+        
+        <Label x:Name="AmountLabel" Text="Summary" FontSize="Small" TextColor="Red"  FontAttributes="Bold"/>
+        <Label x:Name="RemainedLable" Text="Remaining Balance" FontSize="Small"  TextColor="Green"  FontAttributes="Bold"/>
+
+    </StackLayout>
+   
+</ContentPage>

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExpenseTracker.AddExpensePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="ExpenseLabel" Text="Add Expense" HorizontalOptions ="Center" FontSize ="50" />
+            
+            <Label Margin="10,25,10,0"
+                   Text="Name:" FontSize="18"
+                   HeightRequest="25"/>
+            <Editor Margin="10,0,10,0"
+                    x:Name="ExpenseName" 
+                    Placeholder="Enter expense name"
+                    HeightRequest="40"/>
+
+            <Label Margin="10,25,10,0"
+                   Text="Amount:" FontSize="18"
+                   HeightRequest="25"/>
+            <Editor Margin="10,0,10,0"
+                    x:Name="ExpenseAmount" Keyboard="Numeric"
+                    Placeholder="Enter expense amount"
+                    HeightRequest="40"/>
+
+            <Label Margin="10,25,10,0"
+                   Text="Date of expense:" FontSize="18"
+                   HeightRequest="25"/>
+            <DatePicker Margin="10,0,10,0"
+                        x:Name="ExpenseDate"
+                        MinimumDate="01/01/2021" 
+                        MaximumDate="12/31/2027"
+                        DateSelected="DatePicker_DateSelected"/>
+
+            <Label Margin="10,25,10,0"
+                   x:Name="ExpenseCategory"
+                   Text="Category" FontSize="18"
+                   HeightRequest="25"/>
+            <Grid Margin="10,10,10,0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ImageButton x:Name="HomeIcon" BackgroundColor="#D1D1D1" Grid.Row="0" Grid.Column="0" Clicked="HomeIcon_Clicked" >
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe902;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton x:Name="ShoppingIcon" Grid.Row="0" Grid.Column="1" Clicked="ShoppingIcon_Clicked" BackgroundColor="#D1D1D1">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe93a;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton x:Name="TravelIcon" BackgroundColor="#D1D1D1" Grid.Row="0" Grid.Column="2" Clicked="TravelIcon_Clicked">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe9af;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton x:Name="FoodIcon" BackgroundColor="#D1D1D1" Grid.Row="0" Grid.Column="3" Clicked="FoodIcon_Clicked">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe9a3;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton> 
+
+                <ImageButton x:Name="EntertainmentIcon" BackgroundColor="#D1D1D1" Grid.Row="1" Grid.Column="0" Clicked="EntertainmentIcon_Clicked">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe911;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton x:Name="EducationIcon" BackgroundColor="#D1D1D1" Grid.Row="1" Grid.Column="1" Clicked="EducationIcon_Clicked">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe921;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton x:Name="BillsIcon" BackgroundColor="#D1D1D1" Grid.Row="1" Grid.Column="2" Clicked="BillsIcon_Clicked">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe922;"
+                         FontFamily="{DynamicResource CustomFont}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton x:Name="GiftIcon" BackgroundColor="#D1D1D1" Grid.Row="1" Grid.Column="3" Clicked="GiftIcon_Clicked">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe99f;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=icomoon.ttf#}"
+                         Size="44" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+
+            <Grid Margin="10,10,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name ="AddSaveButton"
+                        Text="Add"
+                        Clicked="OnAddButtonClicked" />
+                <Button x:Name="UpdateButton" IsVisible="False"
+                        Text="Update"
+                        Clicked="OnUpdateButtonClicked"/>
+                <Button Text="Cancel"
+                        Clicked="OnCancelButtonClicked" 
+                        Grid.Column="1"/>
+            </Grid>
+            <Button Margin="10,0,10,10" BackgroundColor="#F27777" HeightRequest="40" IsVisible="False"
+                    x:Name="DeleteButton" 
+                    Text="Delete" TextColor="White"
+                    Clicked="OnDeleteButtonClicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
